@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Users>
+
+@{ 
+    int ID = ViewBag.id;
+    var user = new Users();
+    foreach(var a in Model)
+    {
+        if (a.id == ID)
+        {
+            user = a;
+        }
+    }
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>@user.Name</h1>
+    <div class="user-info">
+        <img src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" height="300"/>
+    </div>
+</body>
+</html>

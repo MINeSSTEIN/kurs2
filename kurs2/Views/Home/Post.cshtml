@@ -1,0 +1,60 @@
+﻿
+@model dynamic
+
+@{
+    int Id = ViewBag.id;
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>foisdfj</title>
+</head>
+<body>
+    @{
+        var post = new Posts();
+        foreach (var a in Model.Posts)
+        {
+            if (a.id == Id)
+            {
+                post = a;
+            }
+        }
+    }
+    <h1>@post.Title</h1>
+    @{ 
+        var user = new Users();
+        foreach (var a in Model.Users)
+        {
+            if (a.id == post.AuthorID)
+            {
+                user = a;
+            }
+        }
+    }
+    <a href="user?id=@user.id" style="color: #808080; font-size: 15px">@user.Name</a>
+    <p>@post.Info</p>
+    <h2>Ответы</h2>
+    <div>
+        @{ 
+            foreach (var a in Model.Comments)
+            {
+                if (a.PostID == post.id)
+                {
+                <div class="post-pre _comm">
+                    <div class="comment-usr-info">
+                        <img src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="60" />
+                        @foreach (var b in Model.Users)
+                            {
+                                if (b.id == a.AuthorID)
+                                    {
+                                        <a href="user?id=@a.AuthorID">@b.Name</a>
+                                    }
+                                }
+                    </div>
+                    <p>@a.Text</p>
+                </div>
+                    }
+                }
+            }
+    </div>
+</body>
+</html>

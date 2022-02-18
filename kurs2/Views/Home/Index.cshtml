@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    @model dynamic
+}
+
+<div class="text-center">
+    <a asp-action="Create">Добавить пользователя</a>
+    @{
+        ViewBag.Title = "Все вопросы";
+    }
+    @foreach (var item in Model.Posts)
+    {
+        <a href="post?id=@item.id">
+            <div class="post-pre">
+                <div class="post-name">
+                    <p class="pos-name-p">@item.Title</p>
+                    <p></p>
+                </div>
+                <div>
+
+                    <p class="post-info">@item.Info</p>
+                </div>
+            </div>
+        </a>
+    }
+
+</div>
+
