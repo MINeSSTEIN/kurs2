@@ -64,6 +64,15 @@ namespace kurs2
                 endpoints.MapControllerRoute(
                     name: "user",
                     pattern: "{controller=Home}/{action=User}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "login",
+                    pattern: "{controller=Home}/{action=Login}");
+                endpoints.MapControllerRoute(
+                    name: "exit,",
+                    pattern: "{controller=Home}/{action=Exit}");
+                endpoints.MapControllerRoute(
+                    name: "addpost",
+                    pattern: "{controller=Home}/{action=AddPost}");
             });
         }
     }

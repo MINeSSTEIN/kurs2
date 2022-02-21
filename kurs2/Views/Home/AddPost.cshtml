@@ -1,0 +1,10 @@
+﻿@model kurs2.Models.Posts
+
+
+    <form asp-action="AddPost" asp-controller="Home">
+        <input type="hidden" asp-for="AuthorID" value="@ViewBag.id"/>
+        <input type="hidden" asp-for="CreatedAt" value="@DateTime.Now.Date"/>
+        <input type="text" asp-for="Title"/>
+        <input type="text" asp-for="Info"/>
+        <input type="submit" value="Задать вопрос!"/>
+    </form>

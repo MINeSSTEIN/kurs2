@@ -14,7 +14,6 @@ namespace kurs2.Models
         public DateTime CreatedAt { get; set; }
         public string Title { get; set; }
         public string Info { get; set; }
-        public int CategoryID { get; set; }
 
         public static Posts GetPost(int initID)
         {

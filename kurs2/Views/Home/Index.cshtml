@@ -4,7 +4,13 @@
 }
 
 <div class="text-center">
-    <a asp-action="Create">Добавить пользователя</a>
+    @{
+        if (Context.Request.Cookies["auth"] != null)
+        {
+            <a asp-action="AddPost">Добавить вопрос</a>
+
+        }
+    }
     @{
         ViewBag.Title = "Все вопросы";
     }
