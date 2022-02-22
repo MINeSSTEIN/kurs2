@@ -31,11 +31,12 @@
                     @{
                         if (Context.Request.Cookies["auth"] != null)
                         {
-                            <a asp-action="exit" asp-controller="home">Exit</a>
+                            <a asp-action="exit" asp-controller="home">Выйти</a>
                         }
                         else
                         {
-                            <a asp-action="login">Login</a>
+                            <a asp-action="login">Логин</a>
+                            <a asp-action="registration">Регистрация</a>
 
                         }
                     }

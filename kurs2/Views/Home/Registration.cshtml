@@ -1,0 +1,12 @@
+﻿@model kurs2.Models.Users
+<form asp-action="Registration" asp-controller="Home">
+    <input type="text" asp-for="Name"/>
+    <input type="hidden" asp-for="RegDate" value="@DateTime.Now.Date"/>
+    <input type="hidden" asp-for="CatID" value="1" />
+    <input type="date" asp-for="BirthDate" />
+    <input type="text" asp-for="Bio" />
+    <input type="text" asp-for="Photo" />
+    <input type="password" asp-for="Password" />
+    <input type="email" asp-for="Email" />
+    <input type="submit" value="Регистрация!"/>
+</form>

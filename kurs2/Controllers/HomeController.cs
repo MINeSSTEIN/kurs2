@@ -114,6 +114,18 @@ namespace kurs2.Controllers
             return View();
         }
 
+        [Route("Registration")]
+        public ActionResult Registration(Users usr)
+        {
+            if(usr.Name != "" && usr.Bio != null && usr.Password != null)
+            {
+                db.Users.Add(usr);
+                db.SaveChanges();
+                Response.Redirect("/");
+            }
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
