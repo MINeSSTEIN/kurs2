@@ -1,0 +1,9 @@
+﻿@model kurs2.Models.Comments
+<form asp-action="AddCommentary" asp-controller="home">
+    <input type="hidden" value="@Context.Request.Cookies["auth"]" asp-for="AuthorID"/>
+    <input type="hidden" value="@ViewBag.id" asp-for="PostID"/>
+    <input type="hidden" value="@false" asp-for="Solution" />
+    <input type="hidden" value="@DateTime.Now" asp-for="CreatedAt" />
+    <input type="text" asp-for="Text" />
+    <input type="submit" value="Ответить!"/>
+</form>

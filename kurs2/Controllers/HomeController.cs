@@ -38,15 +38,8 @@ namespace kurs2.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Create(Users users)
-        {
-            db.Users.Add(users);
-            await db.SaveChangesAsync();
-            return RedirectToAction("index");
-        }
-
         [Route("Post")]
-        public ActionResult Post(int id)
+        public ActionResult Post(int id, int? usrId)
         {
             ViewBag.ID = id;
 
@@ -122,6 +115,19 @@ namespace kurs2.Controllers
                 db.Users.Add(usr);
                 db.SaveChanges();
                 Response.Redirect("/");
+            }
+            return View();
+        }
+
+        [Route("AddCommentary")]
+        public ActionResult AddCommentary(Comments cm, int id)
+        {
+            ViewBag.id = id;
+            if(cm.Text != null)
+            {
+                db.Comments.Add(cm);
+                db.SaveChanges();
+                Response.Redirect($"post?id={cm.PostID}");
             }
             return View();
         }

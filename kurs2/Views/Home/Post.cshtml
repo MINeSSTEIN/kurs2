@@ -11,6 +11,12 @@
 <body>
     @{
         var post = new Posts();
+        List<Comments> comms = new List<Comments>();
+        foreach(var a in Model.Comments)
+        {
+            comms.Add(a);
+        }
+
         foreach (var a in Model.Posts)
         {
             if (a.id == Id)
@@ -34,6 +40,19 @@
     <p>@post.Info</p>
     <h2>Ответы</h2>
     <div>
+@*        @{ 
+            Dictionary<string, int> usrsDict = new Dictionary<string, int>();
+            foreach(var u in Model.Users)
+            {
+                usrsDict.Add(u.Name, u.id);
+            }
+            SelectList usrs = new SelectList(usrsDict);
+        }
+        <form method="get">
+            <label>Сортировать по пользователям</label>
+            <select asp-items="usrs"></select>
+            <input type="submit" />
+        </form>*@   
         @{ 
             foreach (var a in Model.Comments)
             {
