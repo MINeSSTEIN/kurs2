@@ -12,7 +12,7 @@
     @{
         var post = new Posts();
         List<Comments> comms = new List<Comments>();
-        foreach(var a in Model.Comments)
+        foreach (var a in Model.Comments)
         {
             comms.Add(a);
         }
@@ -25,8 +25,16 @@
             }
         }
     }
+    @{
+        if (Context.Request.Cookies["auth"] == post.AuthorID.ToString())
+        {
+            <a href="changepost?id=@post.id">Изменить</a>
+
+        }
+
+    }
     <h1>@post.Title</h1>
-    @{ 
+    @{
         var user = new Users();
         foreach (var a in Model.Users)
         {
@@ -40,40 +48,40 @@
     <p>@post.Info</p>
     <h2>Ответы</h2>
     <div>
-@*        @{ 
-            Dictionary<string, int> usrsDict = new Dictionary<string, int>();
-            foreach(var u in Model.Users)
-            {
-                usrsDict.Add(u.Name, u.id);
+        @*        @{
+                Dictionary<string, int> usrsDict = new Dictionary<string, int>();
+                foreach(var u in Model.Users)
+                {
+                    usrsDict.Add(u.Name, u.id);
+                }
+                SelectList usrs = new SelectList(usrsDict);
             }
-            SelectList usrs = new SelectList(usrsDict);
-        }
-        <form method="get">
-            <label>Сортировать по пользователям</label>
-            <select asp-items="usrs"></select>
-            <input type="submit" />
-        </form>*@   
-        @{ 
+            <form method="get">
+                <label>Сортировать по пользователям</label>
+                <select asp-items="usrs"></select>
+                <input type="submit" />
+            </form>*@
+        @{
             foreach (var a in Model.Comments)
             {
                 if (a.PostID == post.id)
                 {
-                <div class="post-pre _comm">
-                    <div class="comment-usr-info">
-                        <img src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="60" />
-                        @foreach (var b in Model.Users)
+                    <div class="post-pre _comm">
+                        <div class="comment-usr-info">
+                            <img src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="60" />
+                            @foreach (var b in Model.Users)
                             {
                                 if (b.id == a.AuthorID)
-                                    {
-                                        <a href="user?id=@a.AuthorID">@b.Name</a>
-                                    }
+                                {
+                                    <a href="user?id=@a.AuthorID">@b.Name</a>
                                 }
+                            }
+                        </div>
+                        <p>@a.Text</p>
                     </div>
-                    <p>@a.Text</p>
-                </div>
-                    }
                 }
             }
+        }
     </div>
     <a href="AddCommentary?id=@post.id">Добавить ответ</a>
 </body>

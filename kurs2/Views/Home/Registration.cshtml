@@ -1,12 +1,36 @@
 ﻿@model kurs2.Models.Users
 <form asp-action="Registration" asp-controller="Home">
-    <input type="text" asp-for="Name"/>
-    <input type="hidden" asp-for="RegDate" value="@DateTime.Now.Date"/>
+    <div>
+        <label asp-for="Name">Логин</label>
+        <input type="text" asp-for="Name" />
+
+    </div>
+    <div>
+        <label asp-for="BirthDate">Дата рождения</label>
+        <input type="date" asp-for="BirthDate" />
+
+    </div>
+    <div>
+        <label asp-for="Bio">О себе</label>
+        <input type="text" asp-for="Bio" />
+
+    </div>
+    <div>
+        <label asp-for="Photo">Фото</label>
+        <input type="text" asp-for="Photo" />
+
+    </div>
+    <div>
+        <label asp-for="Password">Пароль</label>
+        <input type="password" asp-for="Password" />
+
+    </div>
+    <div>
+        <label asp-for="Email">Адрес электронной почты</label>
+        <input type="email" asp-for="Email" />
+
+    </div>
+    <input type="hidden" asp-for="RegDate" value="@DateTime.Now.Date" />
     <input type="hidden" asp-for="CatID" value="1" />
-    <input type="date" asp-for="BirthDate" />
-    <input type="text" asp-for="Bio" />
-    <input type="text" asp-for="Photo" />
-    <input type="password" asp-for="Password" />
-    <input type="email" asp-for="Email" />
-    <input type="submit" value="Регистрация!"/>
+    <input type="submit" value="Регистрация!" />
 </form>

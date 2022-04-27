@@ -137,6 +137,23 @@ namespace kurs2.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        //
+        
+        [Route("ChangePost")]
+        public ActionResult ChangePost(int id, Posts post)
+        {
+            ViewBag.id = id;
+            ViewBag.post = db.Posts.Find(id);
+
+            if(post.Title != null && post.Info != null)
+            {
+                db.Posts.Load();
+                db.Posts.Find(id).Title = post.Title;
+                db.Posts.Find(id).Info = post.Info;
+
+                db.SaveChanges();
+
+            }
+            return View();
+        }
     }
 }
