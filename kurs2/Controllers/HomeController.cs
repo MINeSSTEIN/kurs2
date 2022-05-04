@@ -110,7 +110,7 @@ namespace kurs2.Controllers
         [Route("Registration")]
         public ActionResult Registration(Users usr)
         {
-            if(usr.Name != "" && usr.Bio != null && usr.Password != null)
+            if (usr.Name != "" && usr.Bio != null && usr.Password != null)
             {
                 db.Users.Add(usr);
                 db.SaveChanges();
@@ -123,7 +123,7 @@ namespace kurs2.Controllers
         public ActionResult AddCommentary(Comments cm, int id)
         {
             ViewBag.id = id;
-            if(cm.Text != null)
+            if (cm.Text != null)
             {
                 db.Comments.Add(cm);
                 db.SaveChanges();
@@ -137,18 +137,36 @@ namespace kurs2.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
+
         [Route("ChangePost")]
         public ActionResult ChangePost(int id, Posts post)
         {
             ViewBag.id = id;
             ViewBag.post = db.Posts.Find(id);
 
-            if(post.Title != null && post.Info != null)
+            if (post.Title != null && post.Info != null)
             {
                 db.Posts.Load();
                 db.Posts.Find(id).Title = post.Title;
                 db.Posts.Find(id).Info = post.Info;
+
+                db.SaveChanges();
+
+            }
+            return View();
+
+
+        }
+        [Route("ChangeComm")]
+        public ActionResult ChangeComm(int id, Comments comm)
+        {
+            ViewBag.id = id;
+            ViewBag.comm = db.Comments.Find(id);
+
+            if (comm.Text != null)
+            {
+                db.Posts.Load();
+                db.Comments.Find(id).Text = comm.Text;
 
                 db.SaveChanges();
 

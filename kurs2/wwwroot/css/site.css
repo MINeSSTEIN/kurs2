@@ -110,3 +110,7 @@ body {
 *:not(input) {
     color: #d5d5d5 !important;
 }
+
+._change{
+    width: 400px;
+}

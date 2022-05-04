@@ -74,6 +74,10 @@
                                 if (b.id == a.AuthorID)
                                 {
                                     <a href="user?id=@a.AuthorID">@b.Name</a>
+                                    if(a.AuthorID.ToString() == Context.Request.Cookies["auth"])
+                            {
+                                <a href="changecomm?id=@a.id">Изменить</a>
+                            }
                                 }
                             }
                         </div>
