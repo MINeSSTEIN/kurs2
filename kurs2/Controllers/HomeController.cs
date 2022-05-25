@@ -57,7 +57,12 @@ namespace kurs2.Controllers
         public ActionResult User(int id)
         {
             ViewBag.ID = id;
-            return View(db.Users);
+
+            dynamic userModel = new ExpandoObject();
+            userModel.Users = db.Users.ToList();
+            userModel.Posts = db.Posts.ToList();
+
+            return View(userModel);
         }
 
         [Route("Login")]
@@ -68,6 +73,9 @@ namespace kurs2.Controllers
             {
                 Response.Cookies.Append("auth", usr.id.ToString(), new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTimeOffset.Now.AddMonths(1) });
                 Response.Cookies.Append("pass", usr.Password.ToString(), new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTimeOffset.Now.AddMonths(1) });
+                Response.Cookies.Append("name", usr.Name.ToString(), new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTimeOffset.Now.AddMonths(1) });
+                Response.Cookies.Append("r", usr.CatID.ToString(), new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTimeOffset.Now.AddMonths(1) });
+
                 Response.Redirect("/");
             }
             else
@@ -77,12 +85,13 @@ namespace kurs2.Controllers
             return View();
         }
 
-
         [Route("Exit")]
         public ActionResult Exit()
         {
             Response.Cookies.Delete("auth");
             Response.Cookies.Delete("pass");
+            Response.Cookies.Delete("r");
+            Response.Cookies.Delete("name");
             Response.Redirect("/");
             return View();
         }
@@ -152,11 +161,13 @@ namespace kurs2.Controllers
 
                 db.SaveChanges();
 
+                Response.Redirect($"/post?id={id}");
             }
             return View();
 
 
         }
+
         [Route("ChangeComm")]
         public ActionResult ChangeComm(int id, Comments comm)
         {
@@ -170,7 +181,36 @@ namespace kurs2.Controllers
 
                 db.SaveChanges();
 
+                Response.Redirect($"/post?id={db.Comments.Find(id).PostID}");
             }
+            return View();
+        }
+
+        [Route("DeletePost")]
+        public ActionResult DeletePost(int id)
+        {
+            ViewBag.id = id;
+
+            var post = db.Posts.Find(id);
+            db.Posts.Remove(post);
+            db.SaveChanges();
+
+            Response.Redirect("/");
+
+            return View();
+        }
+
+        [Route("DeleteComm")]
+        public ActionResult DeleteComm(int id)
+        {
+            ViewBag.id = id;
+
+            var comm = db.Comments.Find(id);
+            db.Comments.Remove(comm);
+            db.SaveChanges();
+
+            Response.Redirect($"Post?id={comm.PostID}");
+
             return View();
         }
     }

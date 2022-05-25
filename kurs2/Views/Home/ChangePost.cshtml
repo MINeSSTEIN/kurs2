@@ -1,15 +1,19 @@
-﻿@model kurs2.Models.Comments
+﻿@model kurs2.Models.Posts
 
 
 @{ 
-    var comm = ViewBag.comm;
+    var post = ViewBag.post;
 }
 
-<form asp-action="ChangeComm" asp-controller="Home">
+<form asp-action="ChangePost" asp-controller="Home">
     <div>
-        <label asp-for="Text">Текст ответа</label>
-        <input type="text" asp-for="Text" value="@comm.Text"/>
+        <label asp-for="Title">Заголовок вопроса</label>
+        <input type="text" asp-for="Title" value="@post.Title" />
     </div>
-    <input type="hidden" value="@ViewBag.id" asp-for="id"/>
+    <div>
+        <label asp-for="Info">Текст вопроса</label>
+        <input type="text" asp-for="Info" value="@post.Info" />
+    </div>
+    <input type="hidden" value="@ViewBag.id" asp-for="id" />
     <input type="submit" value="Подтвердить" />
 </form>

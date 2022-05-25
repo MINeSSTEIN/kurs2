@@ -85,6 +85,12 @@ namespace kurs2
                 endpoints.MapControllerRoute(
                     name: "ChangeComm",
                     pattern: "{controller=Home}/{action=ChangeComm}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "DeletePost",
+                    pattern: "{controller=Home}/{action=DeletePost}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "DeleteComm",
+                    pattern: "{controller=Home}/{action=DeleteComm}/{id?}");
             });
         }
     }

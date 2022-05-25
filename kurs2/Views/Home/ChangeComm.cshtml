@@ -1,9 +1,15 @@
 ﻿@model kurs2.Models.Comments
-<form asp-action="ChabgeComm" asp-controller="home">
+
+@{
+    var comm = ViewBag.comm;
+}
+
+<form asp-action="ChangeComm" asp-controller="home">
 
     <div>
         <label asp-for="Text">Текст вопроса</label>
-        <input type="text" asp-for="Text" value="@ViewBag.comm.Text" class="_change"/>
+        <input type="text" asp-for="Text" value="@ViewBag.comm.Text" class="_change" />
     </div>
+    <input type="hidden" value="@ViewBag.id" asp-for="id" />
     <input type="submit" value="Ответить!" />
 </form>

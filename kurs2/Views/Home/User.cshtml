@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Users>
+﻿@model dynamic
 
 @{ 
     int ID = ViewBag.id;
     var user = new Users();
-    foreach(var a in Model)
+    foreach(var a in Model.Users)
     {
         if (a.id == ID)
         {
@@ -19,7 +19,30 @@
 <body>
     <h1>@user.Name</h1>
     <div class="user-info">
-        <img src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" height="300"/>
+        <img src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" height="300" />
+
+        <p>@user.Bio</p>
+
+        @foreach (var a in Model.Posts)
+        {
+            if (a.AuthorID == user.id)
+            {
+                <a href="post?id=@a.id">
+                    <div class="post-pre">
+                        <div class="post-name">
+                            <p class="pos-name-p">@a.Title</p>
+                            <p></p>
+                        </div>
+                        <div>
+
+                            <p class="post-info">@a.Info</p>
+                        </div>
+                    </div>
+                </a>
+
+            }
+        }
+
     </div>
 </body>
 </html>

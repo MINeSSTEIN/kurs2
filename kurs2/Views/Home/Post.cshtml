@@ -1,16 +1,24 @@
-﻿
-@model dynamic
+﻿@model dynamic
 
 @{
     int Id = ViewBag.id;
+    var user = new Users();
+    var post = new Posts();
+
+    foreach (var a in Model.Posts)
+    {
+        if (a.id == Id)
+        {
+            post = a;
+        }
+    }
 }
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>foisdfj</title>
+    <title>Вопрос: @post.Title</title>
 </head>
 <body>
     @{
-        var post = new Posts();
         List<Comments> comms = new List<Comments>();
         foreach (var a in Model.Comments)
         {
@@ -26,16 +34,24 @@
         }
     }
     @{
-        if (Context.Request.Cookies["auth"] == post.AuthorID.ToString())
+        if (Context.Request.Cookies["r"] == "2")
         {
             <a href="changepost?id=@post.id">Изменить</a>
+            <a href="deletepost?id=@post.id">Удалить</a>
 
         }
+        else
+        {
+            if (Context.Request.Cookies["auth"] == post.AuthorID.ToString())
+            {
+                <a href="changepost?id=@post.id">Изменить</a>
+                <a href="deletepost?id=@post.id">Удалить</a>
 
+            }
+        }
     }
     <h1>@post.Title</h1>
     @{
-        var user = new Users();
         foreach (var a in Model.Users)
         {
             if (a.id == post.AuthorID)
@@ -48,45 +64,54 @@
     <p>@post.Info</p>
     <h2>Ответы</h2>
     <div>
-        @*        @{
-                Dictionary<string, int> usrsDict = new Dictionary<string, int>();
-                foreach(var u in Model.Users)
-                {
-                    usrsDict.Add(u.Name, u.id);
-                }
-                SelectList usrs = new SelectList(usrsDict);
-            }
-            <form method="get">
-                <label>Сортировать по пользователям</label>
-                <select asp-items="usrs"></select>
-                <input type="submit" />
-            </form>*@
         @{
             foreach (var a in Model.Comments)
             {
                 if (a.PostID == post.id)
                 {
                     <div class="post-pre _comm">
-                        <div class="comment-usr-info">
-                            <img src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="60" />
-                            @foreach (var b in Model.Users)
-                            {
-                                if (b.id == a.AuthorID)
-                                {
-                                    <a href="user?id=@a.AuthorID">@b.Name</a>
-                                    if(a.AuthorID.ToString() == Context.Request.Cookies["auth"])
-                            {
-                                <a href="changecomm?id=@a.id">Изменить</a>
-                            }
-                                }
-                            }
-                        </div>
+                                <div class="comment-usr-info">
+                                    <img src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="60" />
+                                    @if (Context.Request.Cookies["r"] == "2")
+                                    {
+                                        foreach (var b in Model.Users)
+                                        {
+                                            if (b.id == a.AuthorID)
+                                            {
+                                                <a href="user?id=@a.AuthorID">@b.Name</a>
+                                            }
+                                        }
+                                        <a href="changecomm?id=@a.id">Изменить</a>
+                                        <a href="deletecomm?id=@a.id">Удалить</a>
+
+                                    }
+                                    else
+                                    {
+                                        foreach (var b in Model.Users)
+                                        {
+                                            if (b.id == a.AuthorID)
+                                            {
+                                                <a href="user?id=@a.AuthorID">@b.Name</a>
+                                                if (a.AuthorID.ToString() == Context.Request.Cookies["auth"])
+                                                {
+                                                    <a href="changecomm?id=@a.id">Изменить</a>
+                                                    <a href="deletecomm?id=@a.id">Удалить</a>
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                </div>
                         <p>@a.Text</p>
                     </div>
                 }
             }
         }
     </div>
-    <a href="AddCommentary?id=@post.id">Добавить ответ</a>
+    @if (Context.Request.Cookies["auth"] != null)
+    {
+        <a href="AddCommentary?id=@post.id">Добавить ответ</a>
+
+    }
 </body>
 </html>
