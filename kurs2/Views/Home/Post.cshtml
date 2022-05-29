@@ -4,6 +4,7 @@
     int Id = ViewBag.id;
     var user = new Users();
     var post = new Posts();
+    int counter = 0;
 
     foreach (var a in Model.Posts)
     {
@@ -18,6 +19,7 @@
     <title>Вопрос: @post.Title</title>
 </head>
 <body>
+    <!--Загрузка комментариев-->
     @{
         List<Comments> comms = new List<Comments>();
         foreach (var a in Model.Comments)
@@ -33,23 +35,32 @@
             }
         }
     }
-    @{
-        if (Context.Request.Cookies["r"] == "2")
-        {
-            <a href="changepost?id=@post.id">Изменить</a>
-            <a href="deletepost?id=@post.id">Удалить</a>
 
-        }
-        else
-        {
-            if (Context.Request.Cookies["auth"] == post.AuthorID.ToString())
+    <!--Отображение категорий-->
+
+    <div class="post-categories">
+
+        @{
+            foreach (var a in Model.PostsCategories)
             {
-                <a href="changepost?id=@post.id">Изменить</a>
-                <a href="deletepost?id=@post.id">Удалить</a>
-
+                if (a.PostID == Id)
+                {
+                    foreach (var b in Model.Categories)
+                    {
+                        if (a.CatID == b.id)
+                        {
+                            <p class="post-categories-p">
+                                @b.Name
+                            </p>
+                        }
+                    }
+                }
             }
         }
-    }
+    </div>
+
+    <!--Отображение заголовка вопроса, автора и текста вопроса-->
+
     <h1>@post.Title</h1>
     @{
         foreach (var a in Model.Users)
@@ -62,56 +73,97 @@
     }
     <a href="user?id=@user.id" style="color: #808080; font-size: 15px">@user.Name</a>
     <p>@post.Info</p>
+
+    <!--Кнопки управления постом-->
+    <div class="post-edit">
+        @{
+            if (Context.Request.Cookies["r"] == "2")
+            {
+                <a class="post-add-comm" href="changepost?id=@post.id">Изменить</a>
+                <a class="post-add-comm" href="deletepost?id=@post.id">Удалить</a>
+
+            }
+            else
+            {
+                if (Context.Request.Cookies["auth"] == post.AuthorID.ToString())
+                {
+                    <a class="post-add-comm" href="changepost?id=@post.id">Изменить</a>
+                    <a class="post-add-comm" href="deletepost?id=@post.id">Удалить</a>
+
+                }
+            }
+        }
+    </div>
+
     <h2>Ответы</h2>
+
+    <!--Кнопка ответа на вопрос-->
+
+    @if (Context.Request.Cookies["auth"] != null)
+    {
+        <a class="post-add-comm" href="AddCommentary?id=@post.id">Добавить ответ</a>
+
+    }
     <div>
         @{
             foreach (var a in Model.Comments)
             {
                 if (a.PostID == post.id)
                 {
+                    counter++;
+                    <!--Загрузка комментариев-->
+
                     <div class="post-pre _comm">
-                                <div class="comment-usr-info">
-                                    <img src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="60" />
-                                    @if (Context.Request.Cookies["r"] == "2")
+                        <div class="comment-usr-info">
+                            @if (Context.Request.Cookies["r"] == "2")
+                            {
+                                foreach (var b in Model.Users)
+                                {
+                                    if (b.id == a.AuthorID)
                                     {
-                                        foreach (var b in Model.Users)
-                                        {
-                                            if (b.id == a.AuthorID)
-                                            {
-                                                <a href="user?id=@a.AuthorID">@b.Name</a>
-                                            }
-                                        }
-                                        <a href="changecomm?id=@a.id">Изменить</a>
-                                        <a href="deletecomm?id=@a.id">Удалить</a>
-
+                                        <img class="post-user-pic" src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="70" />
+                                        <a class="post-username" href="user?id=@a.AuthorID">@b.Name</a>
                                     }
-                                    else
+                                }
+                                <a class="post-categories-p" href="changecomm?id=@a.id">Изменить</a>
+                                <a class="post-categories-p" href="deletecomm?id=@a.id">Удалить</a>
+                                <p class="post-categories-p">@a.CreatedAt.Date.ToString().Substring(0, a.CreatedAt.ToString().Length - 8)</p>
+                            }
+                            else
+                            {
+                                foreach (var b in Model.Users)
+                                {
+                                    if (b.id == a.AuthorID)
                                     {
-                                        foreach (var b in Model.Users)
+                                        <a href="user?id=@a.AuthorID">@b.Name</a>
+                                        if (a.AuthorID.ToString() == Context.Request.Cookies["auth"])
                                         {
-                                            if (b.id == a.AuthorID)
-                                            {
-                                                <a href="user?id=@a.AuthorID">@b.Name</a>
-                                                if (a.AuthorID.ToString() == Context.Request.Cookies["auth"])
-                                                {
-                                                    <a href="changecomm?id=@a.id">Изменить</a>
-                                                    <a href="deletecomm?id=@a.id">Удалить</a>
+                                            <a href="changecomm?id=@a.id">Изменить</a>
+                                            <a href="deletecomm?id=@a.id">Удалить</a>
 
-                                                }
-                                            }
                                         }
                                     }
-                                </div>
-                        <p>@a.Text</p>
+                                }
+                            }
+                        </div>
+                        <div class="comment-text">
+                            <p>@a.Text</p>
+
+                        </div>
                     </div>
                 }
             }
         }
     </div>
-    @if (Context.Request.Cookies["auth"] != null)
-    {
-        <a href="AddCommentary?id=@post.id">Добавить ответ</a>
 
+    @if (counter >= 5)
+    {
+        if (Context.Request.Cookies["auth"] != null)
+        {
+            <a class="post-add-comm" href="AddCommentary?id=@post.id">Добавить ответ</a>
+
+        }
     }
+
 </body>
 </html>

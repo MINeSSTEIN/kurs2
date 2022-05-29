@@ -1,9 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Домашняя";
     @model dynamic
 }
 
 <div class="text-center">
+
+    <form asp-action="Search" asp-controller="home">
+        <input type="text" />
+        <input type="submit" />
+    </form>
+
     @{
         if (Context.Request.Cookies["auth"] != null)
         {

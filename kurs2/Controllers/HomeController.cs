@@ -33,6 +33,16 @@ namespace kurs2.Controllers
             return View(mymodel);
         }
 
+        [Route("Index")]
+        public IActionResult Search(string q)
+        {
+            if(q != "")
+            {
+                Response.Redirect($"search?q={q}");
+            }
+            return View(q);
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -50,6 +60,8 @@ namespace kurs2.Controllers
             postsmodel.Users = db.Users.ToList();
             postsmodel.Comments = db.Comments.ToList();
             postsmodel.Posts = db.Posts.ToList();
+            postsmodel.Categories = db.Posts_Categories.ToList();
+            postsmodel.PostsCategories = db.Posts_And_Categories.ToList();
             return View(postsmodel);
         }
 
@@ -213,5 +225,16 @@ namespace kurs2.Controllers
 
             return View();
         }
+
+/*        [Route("Search")]
+        public ActionResult Search(int[] tags, string name)
+        {
+            dynamic searchModel = new ExpandoObject();
+            searchModel.Categories = db.Posts_Categories.ToList();
+            searchModel.Posts = db.Posts.ToList();
+            searchModel.PostsCategories = db.Posts_And_Categories.ToList();
+
+            return View();
+        }*/
     }
 }

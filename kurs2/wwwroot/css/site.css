@@ -15,8 +15,13 @@ a {
 
     a:hover {
         border: 0;
-        color: #d5d5d5 !important;
+        color: black !important;
     }
+
+body {
+    background: rgb(51,55,74);
+    background: linear-gradient(300deg, rgba(51,55,74,1) 0%, rgba(38,43,66,1) 25%, rgba(42,47,67,1) 50%, rgba(46,50,68,1) 75%, rgba(0,0,0,1) 100%);
+}
 
 
 
@@ -87,20 +92,27 @@ body {
 
 .post-pre {
     border: 2px solid #e4e4e4;
-    border-radius: 3px;
+    border-radius: 10px;
     min-height: 200px;
     background-color: #32363e;
     margin-bottom: 30px;
 }
-.post-info{
+
+.post-pre:hover{
+    background-color: #00000000!important;
+}
+
+.post-info {
     white-space: normal;
 }
 ._comm{
     display:flex;
 }
 .comment-usr-info{
+    display:flex;
+    flex-direction:column;
     margin: 10px;
-    max-width: 65px;
+    max-width: 80px;
 }
 
 .navbar {
@@ -111,6 +123,78 @@ body {
     color: #d5d5d5 !important;
 }
 
+* {
+    transition: .3s;
+}
+
 ._change{
     width: 400px;
+}
+
+.post-categories{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.post-categories-p {
+    margin: 2px;
+    padding: 2px;
+    color: black !important;
+    background: #e4e4e4;
+    border-radius: 4px;
+    text-align: center;
+}
+
+    .post-categories-p:hover {
+        background: #262b42;
+        color: white !important;
+        transition: .4s;
+    }
+
+.post-username {
+    padding: 2px;
+    color: black !important;
+    background: #e4e4e4;
+    border-radius: 0 0 7px 7px;
+    text-align: center;
+}
+
+    .post-username:hover {
+        border-radius: 10px;
+        background: #262b42;
+        color: white !important;
+        padding: 4px;
+        transition: .4s;
+    }
+
+    .post-user-pic {
+        border-radius: 10px 10px 0 0;
+    }
+
+.post-add-comm{
+    text-align: center;
+    padding: 5px;
+    background: white;
+    border-radius: 15px;
+    color: black!important;
+    margin: 20px 5px 20px 5px;
+}
+.pb-3{
+    display:flex;
+    flex-direction: column;
+}
+
+.post-edit{
+    display:flex;
+    min-width: 100%;
+}
+
+.post-add-comm:hover {
+    background: #262b42;
+    color: white !important;
+    transition: .4s;
+}
+
+.comment-text{
+    padding:3px;
 }
