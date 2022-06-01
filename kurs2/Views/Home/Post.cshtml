@@ -135,12 +135,13 @@
                                 {
                                     if (b.id == a.AuthorID)
                                     {
-                                        <a href="user?id=@a.AuthorID">@b.Name</a>
+                                        <img class="post-user-pic" src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="70" />
+                                        <a class="post-username" href="user?id=@a.AuthorID">@b.Name</a>
                                         if (a.AuthorID.ToString() == Context.Request.Cookies["auth"])
                                         {
-                                            <a href="changecomm?id=@a.id">Изменить</a>
-                                            <a href="deletecomm?id=@a.id">Удалить</a>
-
+                                            <a class="post-categories-p" href="changecomm?id=@a.id">Изменить</a>
+                                            <a class="post-categories-p" href="deletecomm?id=@a.id">Удалить</a>
+                                            <p class="post-categories-p">@a.CreatedAt.Date.ToString().Substring(0, a.CreatedAt.ToString().Length - 8)</p>
                                         }
                                     }
                                 }

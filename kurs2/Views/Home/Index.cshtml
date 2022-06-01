@@ -4,37 +4,35 @@
 }
 
 <div class="text-center">
-
-    <form asp-action="Search" asp-controller="home">
-        <input type="text" />
-        <input type="submit" />
-    </form>
-
-    @{
-        if (Context.Request.Cookies["auth"] != null)
-        {
-            <a asp-action="AddPost">Добавить вопрос</a>
-
-        }
-    }
-    @{
-        ViewBag.Title = "Все вопросы";
-    }
+    <h1>Главная</h1>
+    <h2>Фильтрация по категориям:</h2>
+    <div class="post-categories">
+        @{ 
+            foreach (var b in Model.Categories)
+            {
+            <a href="category?id=@b.id" class="post-categories-p">
+                @b.Name
+            </a> 
+                }
+            }
+    </div>
+    <h2>Вопросы</h2>
+    @{ if (Context.Request.Cookies["auth"] != null)
+                    {
+        <a asp-action="AddPost">Добавить вопрос</a> } }
+    @{ ViewBag.Title = "Все вопросы"; }
     @foreach (var item in Model.Posts)
     {
-        <a href="post?id=@item.id">
-            <div class="post-pre">
-                <div class="post-name">
-                    <p class="pos-name-p">@item.Title</p>
-                    <p></p>
-                </div>
-                <div>
-
-                    <p class="post-info">@item.Info</p>
-                </div>
-            </div>
-        </a>
-    }
+<a href="post?id=@item.id">
+    <div class="post-pre">
+        <div class="post-name">
+            <p class="pos-name-p">@item.Title</p>
+            <p></p>
+        </div>
+        <div>
+            <p class="post-info">@item.Info</p>
+        </div>
+    </div>
+</a>}
 
 </div>
-

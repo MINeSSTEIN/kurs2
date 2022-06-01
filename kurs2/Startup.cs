@@ -95,8 +95,11 @@ namespace kurs2
                     name: "Category",
                     pattern: "{controller=Home}/{action=Category}/{id?}");
                 endpoints.MapControllerRoute(
-                    name: "Search",
-                    pattern: "{controller=Home}/{action=Search}/{q?}");
+                    name: "SearchPosts",
+                    pattern: "{controller=Home}/{action=SearchPosts}");
+                endpoints.MapControllerRoute(
+                    name: "Searchq",
+                    pattern: "{controller=Home}/{action=Searchq}/{q?}");
             });
         }
     }

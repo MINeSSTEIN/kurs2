@@ -1,0 +1,27 @@
+﻿@model dynamic
+@using System;
+
+@{ 
+    string q = ViewBag.q;
+}
+
+<h1>Результаты по запросу - @q</h1>
+<div>
+    @foreach (var item in Model.Posts)
+    {
+        if (item.Title.ToString().Contains(q) || item.Info.Contains(q))
+        {
+
+<a href="post?id=@item.id">
+    <div class="post-pre">
+        <div class="post-name">
+            <p class="pos-name-p">@item.Title</p>
+            <p></p>
+        </div>
+        <div>
+            <p class="post-info">@item.Info</p>
+        </div>
+    </div>
+</a>}
+    }
+</div>

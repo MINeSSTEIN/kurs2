@@ -29,8 +29,26 @@ namespace kurs2.Controllers
         {
             dynamic mymodel = new ExpandoObject();
             mymodel.Users = db.Users.ToList();
+            mymodel.Categories = db.Posts_Categories.ToList();
             mymodel.Posts = db.Posts.ToList();
             return View(mymodel);
+        }
+
+        [Route("SearchPosts")]
+        public IActionResult SearchPosts(string q)
+        {
+            Response.Redirect($"Searchq?q={q}");
+            return View();
+        }
+
+        [Route("Searchq")]
+        public IActionResult Searchq(string q)
+        {
+            dynamic model = new ExpandoObject();
+            ViewBag.q = q;
+            model.Posts = db.Posts;
+
+            return View(model);
         }
 
         [Route("Index")]
