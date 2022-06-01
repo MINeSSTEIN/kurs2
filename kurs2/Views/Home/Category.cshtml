@@ -1,0 +1,42 @@
+﻿@{
+    @model dynamic
+    int id = ViewBag.id;
+    string category = "";
+}
+
+@{ 
+    foreach (var cat in Model.Categories)
+    {
+        if (cat.id == id)
+        {
+            category = cat.Name;
+        }
+    }
+    ViewData["Title"] = $"Результаты - {category}";
+}
+
+<h1>Фильтр по категории: @category</h1>
+
+@foreach (var item in Model.Posts)
+{
+    foreach (var cat in Model.PostsCategories)
+    {
+        if (cat.PostID == item.id && cat.CatID == id)
+        {
+            <a href="post?id=@item.id">
+                <div class="post-pre">
+                    <div class="post-name">
+                        <p class="pos-name-p">@item.Title</p>
+                        <p></p>
+                    </div>
+                    <div>
+
+                        <p class="post-info">@item.Info</p>
+                    </div>
+                </div>
+            </a>
+        }
+    }
+
+
+}

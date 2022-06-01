@@ -226,15 +226,17 @@ namespace kurs2.Controllers
             return View();
         }
 
-/*        [Route("Search")]
-        public ActionResult Search(int[] tags, string name)
+        [Route("Category")]
+        public ActionResult Category(int id) 
         {
-            dynamic searchModel = new ExpandoObject();
-            searchModel.Categories = db.Posts_Categories.ToList();
-            searchModel.Posts = db.Posts.ToList();
-            searchModel.PostsCategories = db.Posts_And_Categories.ToList();
+            dynamic model = new ExpandoObject();
 
-            return View();
-        }*/
+            model.Categories = db.Posts_Categories.ToList();
+            model.PostsCategories = db.Posts_And_Categories.ToList();
+            model.Posts = db.Posts.ToList();
+
+            ViewBag.id = id;
+            return View(model);
+        }
     }
 }
