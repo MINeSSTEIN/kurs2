@@ -40,9 +40,15 @@
 
                     </ul>
                     @using (Html.BeginForm("SearchPosts", "Home"))
-                    {
-                        @Html.TextBox("q", "", new { @class = "search_input", placeholder="Поиск..." })
-                        <input type="submit" value="" class="search_submit"/>}
+                     {
+                <div class="search-cover">
+                    @Html.TextBox("q", "", new { @class = "search_input", placeholder = "Поиск..." })
+                    <div class="search_submit_cover">
+                        <input type="submit" value="" class="search_submit" />
+                    </div>
+                </div>
+
+                     }
                 </div>
             </div>
         </nav>

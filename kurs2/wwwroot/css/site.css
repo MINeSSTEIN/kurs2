@@ -136,7 +136,23 @@ body {
     flex-wrap: wrap;
 }
 
+.add-category {
+    margin: 2px;
+    padding: 4px;
+    border-radius: 20px;
+    transition: .4s;
+    margin-left: -20px;
+    border: 0;
 
+    color: black !important;
+    background: white;
+    text-align: center;
+}
+
+    .add-category:hover {
+        color: white !important;
+        background: black;
+    }
 
 .post-categories-p {
     margin: 2px;
@@ -169,9 +185,9 @@ body {
         transition: .4s;
     }
 
-    .post-user-pic {
-        border-radius: 10px 10px 0 0;
-    }
+.post-user-pic {
+    border-radius: 10px 10px 0 0;
+}
 
 .post-add-comm{
     text-align: center;
@@ -201,21 +217,100 @@ body {
     padding:3px;
 }
 
-.search_input{
-    border-radius:20px;
+.search-cover{
+    display:flex;
+    align-items:center;
+}
+
+.search_input {
+    border-radius: 20px;
     border: 0;
+}
+
+.search_submit_cover {
+    background: white;
+    border-radius: 20px;
+    padding:5px;
+    width: 30px;
+    height: 30px;
+    margin-left:-20px
 }
 
 .search_submit {
     border: 0;
-    border-radius: 0px 20px 20px 0px;
-    background: url("https://novosibirsk.ferraantikor.ru/img/logo/search.png") ;
-    background-repeat:no-repeat;
+    background: url("https://novosibirsk.ferraantikor.ru/img/logo/search.png");
+    background-repeat: no-repeat;
     background-size: contain;
-    background-color:white;
-    width:20px;
-    height:20px;
-    padding:12px;
-    margin-bottom:-6px;
-    margin-left:-24px;
+    background-color: white;
+    width: 22px;
+    height: 22px;
+}
+
+.common-form-box {
+    background: #32363e;
+    max-width:600px;
+    border-radius: 25px;
+    padding: 30px;
+    margin:auto;
+}
+
+.common-form-div {
+    display:flex;
+    flex-direction:column;
+    justify-content: space-between;
+}
+
+.add-commentary {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0 20px 0;
+}
+
+.post-add-comm-ta{
+    width:100%;
+    border:0;
+    color: black!important;
+    padding:5px;
+    border-radius:10px 10px 0 0;
+    
+}
+
+._post{
+    width:600px;
+}
+
+@media (max-width:768px){
+    ._post {
+        width:200px;
+    }
+}
+
+.post-add-comm-submit {
+    border-radius: 0 0 10px 10px;
+    border: 0;
+    background: white;
+}
+
+    .post-add-comm-submit:hover {
+        background: #262b42;
+        color: white !important;
+        transition: .4s;
+    }
+
+.add-tag-cover{
+    display:flex;
+    
+}
+
+.add-post-select{
+    border: 0;
+    display:flex;
+    flex-wrap:wrap;
+    border-radius: 0 0 10px 10px;
+    color: black!important;
+    scrollbar-base-color: transparent;
+}
+option {
+    border-top: 1px solid black;
+    color: black !important;
 }

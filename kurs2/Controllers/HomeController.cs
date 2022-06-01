@@ -127,12 +127,23 @@ namespace kurs2.Controllers
         }
 
         [Route("AddPost")]
-        public ActionResult AddPost(Posts post, string strId)
+        public ActionResult AddPost(string title, string info, int authorID, DateTime creadetAt, string strId, int[] cats)
         {
+            Posts post = new Posts();
+
+            post.AuthorID = authorID;
+            post.Info = info;
+            post.Title = title;
+            post.CreatedAt = creadetAt;
+
+            dynamic model = new ExpandoObject();
+            model.Posts = db.Posts.ToList();
+            model.Categories = db.Posts_Categories.ToList();
             strId = Request.Cookies["auth"];
             int id = Convert.ToInt32(strId);
             ViewBag.ID = id;
-            if (post.Title != "" && post.Info != null)
+
+            if (title != "" && info != null)
             {
                 db.Posts.Add(post);
                 db.SaveChanges();
@@ -140,10 +151,21 @@ namespace kurs2.Controllers
 
             if (db.Posts.FirstOrDefault(x => x.Title == post.Title) != null)
             {
-                Response.Redirect($"post?id={post.id}");
+                foreach (var i in cats)
+                {
+                    Diplom.Models.Posts_And_Categories pc = new Diplom.Models.Posts_And_Categories();
+                    pc.CatID = i;
+                    pc.PostID = post.id;
+
+                    db.Posts_And_Categories.Add(pc);
+                    db.SaveChanges();
+                }
+
+
+                    Response.Redirect($"post?id={post.id}");
 
             }
-            return View();
+            return View(model);
         }
 
         [Route("Registration")]
@@ -170,6 +192,25 @@ namespace kurs2.Controllers
             }
             return View();
         }
+
+        [Route("AddCommentary_")]
+        public ActionResult AddCommentary_(string text, int id)
+        {
+            if (text != "")
+            {
+                Comments comm = new Comments();
+                comm.Text = text;
+                comm.PostID = id;
+                comm.AuthorID = Convert.ToInt32(Request.Cookies["auth"]);
+                comm.CreatedAt = DateTime.Now;
+                db.Comments.Add(comm);
+                db.SaveChanges();
+            }
+
+            Response.Redirect($"post?id={id}");
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -255,6 +296,18 @@ namespace kurs2.Controllers
 
             ViewBag.id = id;
             return View(model);
+        }
+
+        [Route("AddCategory")]
+        public IActionResult AddCategory(string name)
+        {
+            var cat = new Diplom.Models.Posts_Categories();
+            cat.Name = name;
+            db.Posts_Categories.Add(cat);
+            db.SaveChanges();
+
+            Response.Redirect("/");
+            return View();
         }
     }
 }

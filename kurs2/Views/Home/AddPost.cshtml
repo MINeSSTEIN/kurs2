@@ -1,16 +1,35 @@
-﻿@model kurs2.Models.Posts
+﻿@model dynamic
+
+@{ 
+    int id = ViewBag.id;
+}
+
+<div class="common-form-box _post">
+    @using (Html.BeginForm("AddPost"))
+    {
+        <div class="common-form-div">
+            <label >Название вопроса</label>
+            @Html.TextBox("Title", "")
+        </div>
+        <div class="common-form-div">
+            <label >Текст вопроса</label>
+            @Html.TextArea("Info", "", new {@class = "post-add-comm-ta"})
+        </div>
+        @Html.Hidden("AuthorID", id)
+        @Html.Hidden("CreatedAt", DateTime.Now)
+        <div class="common-form-div">
+            <select multiple="multiple" name="cats" class="add-post-select" size="20">
+                @foreach (var a in Model.Categories)
+                {
+                    <option value="@a.id" title="@a.Name">@a.Name</option>
+                }
+            </select>
+        </div>
 
 
-<form asp-action="AddPost" asp-controller="Home">
-    <div>
-        <label asp-for="Title">Название вопроса</label>
-        <input type="text" asp-for="Title" />
-    </div>
-    <div>
-        <label asp-for="Info">Текст вопроса</label>
-        <input type="text" asp-for="Info" />
-    </div>
-        <input type="hidden" asp-for="AuthorID" value="@ViewBag.id" />
-        <input type="hidden" asp-for="CreatedAt" value="@DateTime.Now.Date" />
+
         <input type="submit" value="Задать вопрос!" />
-</form>
+
+
+    }
+</div>

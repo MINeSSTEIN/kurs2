@@ -100,6 +100,9 @@ namespace kurs2
                 endpoints.MapControllerRoute(
                     name: "Searchq",
                     pattern: "{controller=Home}/{action=Searchq}/{q?}");
+                endpoints.MapControllerRoute(
+                    name: "AddCommentary_",
+                    pattern: "{controller=Home}/{action=AddCommentary_}");
             });
         }
     }
