@@ -1,15 +1,14 @@
 ﻿@model dynamic
-@using System;
 
 @{ 
-    string q = ViewBag.q;
+    string q = ViewBag.q.ToLower();
 }
 
 <h1>Результаты по запросу - @q</h1>
 <div>
     @foreach (var item in Model.Posts)
     {
-        if (item.Title.ToString().Contains(q) || item.Info.Contains(q))
+        if (item.Title.ToLower().Contains(q) || item.Info.ToLower().Contains(q))
         {
 
 <a href="post?id=@item.id">

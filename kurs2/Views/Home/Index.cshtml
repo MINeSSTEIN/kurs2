@@ -30,7 +30,7 @@ if (Context.Request.Cookies["r"] == "2")
     <h2>Вопросы</h2>
     @{ if (Context.Request.Cookies["auth"] != null)
         {
-<a asp-action="AddPost">Добавить вопрос</a> } }
+<a asp-action="AddPost" class="post-add-comm">Добавить вопрос</a> } }
     @{ ViewBag.Title = "Все вопросы"; }
     @foreach (var item in Model.Posts)
     {

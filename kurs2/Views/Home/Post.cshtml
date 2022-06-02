@@ -1,17 +1,18 @@
 ﻿@model dynamic
 
 @{ int Id = ViewBag.id;
-                var user = new Users();
-                var post = new Posts();
-                int counter = 0;
+    var user = new Users();
+    var post = new Posts();
+    int counter = 0;
 
-                foreach (var a in Model.Posts)
-                {
-                    if (a.id == Id)
-                    {
-                        post = a;
-                    }
-                } }
+    foreach (var a in Model.Posts)
+    {
+        if (a.id == Id)
+        {
+            post = a;
+        }
+    }
+}
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Вопрос: @post.Title</title>
@@ -30,7 +31,8 @@
             {
                 post = a;
             }
-        } }
+        }
+    }
 
     <!--Отображение категорий-->
 
@@ -44,12 +46,13 @@
                     {
                         if (a.CatID == b.id)
                         {
-<a href="category?id=@b.id" class="post-categories-p">
-    @b.Name
-</a> }
-}
-}
-} }
+                            <a href="category?id=@b.id" class="post-categories-p">
+                                @b.Name
+                            </a> }
+                    }
+                }
+            }
+        }
     </div>
 
     <!--Отображение заголовка вопроса, автора и текста вопроса-->
@@ -61,7 +64,8 @@
             {
                 user = a;
             }
-        } }
+        }
+    }
     <a href="user?id=@user.id" style="color: #808080; font-size: 15px">@user.Name</a>
     <p>@post.Info</p>
 
@@ -69,14 +73,16 @@
     <div class="post-edit">
         @{ if (Context.Request.Cookies["r"] == "2")
             {
-<a class="post-add-comm" href="changepost?id=@post.id">Изменить</a>
-                <a class="post-add-comm" href="deletepost?id=@post.id">Удалить</a> }
+                <a class="post-add-comm" href="changepost?id=@post.id">Изменить</a>
+                <a class="post-add-comm" href="deletepost?id=@post.id">Удалить</a>
+            }
             else
             {
                 if (Context.Request.Cookies["auth"] == post.AuthorID.ToString())
                 {
-<a class="post-add-comm" href="changepost?id=@post.id">Изменить</a>
-                    <a class="post-add-comm" href="deletepost?id=@post.id">Удалить</a> }
+                    <a class="post-add-comm" href="changepost?id=@post.id">Изменить</a>
+                    <a class="post-add-comm" href="deletepost?id=@post.id">Удалить</a>
+                }
             } }
     </div>
 
@@ -85,13 +91,15 @@
     <!--Кнопка ответа на вопрос-->
     @if (Context.Request.Cookies["auth"] != null)
     {
-    @using (Html.BeginForm("AddCommentary_", "Home"))
-    {
-<div class="add-commentary">
-    @Html.TextArea("Text", new { placeholder = "Добавить комментарий...", @class = "post-add-comm-ta" })
-    @Html.Hidden("id", Id)
-    <input type="submit" value="Добавить комментарий" class="post-add-comm-submit" />
-</div>}}
+        @using (Html.BeginForm("AddCommentary_", "Home"))
+        {
+            <div class="add-commentary">
+                @Html.TextArea("Text", new { placeholder = "Добавить комментарий...", @class = "post-add-comm-ta" })
+                @Html.Hidden("id", Id)
+                <input type="submit" value="Добавить комментарий" class="post-add-comm-submit" />
+            </div>
+        }
+    }
     <div>
         @{ foreach (var a in Model.Comments)
             {
@@ -99,55 +107,60 @@
                 {
                     counter++; <!--Загрузка комментариев-->
 
-                                        <div class="post-pre _comm">
-                                            <div class="comment-usr-info">
-                                                @if (Context.Request.Cookies["r"] == "2")
-                                                {
-                                                    foreach (var b in Model.Users)
-                                                    {
-                                                        if (b.id == a.AuthorID)
-                                                        {
-                            <img class="post-user-pic" src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="70" />
-                                                            <a class="post-username" href="user?id=@a.AuthorID">@b.Name</a> }
-                                                    }
-                            <a class="post-categories-p" href="changecomm?id=@a.id">Изменить</a>
-                                                    <a class="post-categories-p" href="deletecomm?id=@a.id">Удалить</a>
-                                                                            <p class="post-categories-p">@a.CreatedAt.Date.ToString().Substring(0, a.CreatedAt.ToString().Length - 8)</p> }
-                                                                        else
-                                                                        {
-                                                                            foreach (var b in Model.Users)
-                                                                            {
-                                                                                if (b.id == a.AuthorID)
-                                                                                {
-                                                    <img class="post-user-pic" src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="70" />
-                                                                                    <a class="post-username" href="user?id=@a.AuthorID">@b.Name</a> if (a.AuthorID.ToString() == Context.Request.Cookies["auth"])
-                                                                                    {
-                                                    <a class="post-categories-p" href="changecomm?id=@a.id">Изменить</a>
-                                                                                        <a class="post-categories-p" href="deletecomm?id=@a.id">Удалить</a>
-                                                                                                                            <p class="post-categories-p">@a.CreatedAt.Date.ToString().Substring(0, a.CreatedAt.ToString().Length - 8)</p>}
-                                                                                                                    }
-                                                                                                                }
-                                                                                                            }
-                                            </div>
-                                            <div class="comment-text">
-                                                <p>@a.Text</p>
+                    <div class="post-pre _comm">
+                        <div class="comment-usr-info">
+                            @if (Context.Request.Cookies["r"] == "2")
+                            {
+                                foreach (var b in Model.Users)
+                                {
+                                    if (b.id == a.AuthorID)
+                                    {
+                                        <img class="post-user-pic" src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="70" />
+                                        <a class="post-username" href="user?id=@a.AuthorID">@b.Name</a> }
+                                }
+                                <a class="post-categories-p" href="changecomm?id=@a.id">Изменить</a>
+                                <a class="post-categories-p" href="deletecomm?id=@a.id">Удалить</a>
+                                <p class="post-categories-p">@a.CreatedAt.Date.ToString().Substring(0, a.CreatedAt.ToString().Length - 8)</p>
+                            }
+                            else
+                            {
+                                foreach (var b in Model.Users)
+                                {
+                                    if (b.id == a.AuthorID)
+                                    {
+                                        <img class="post-user-pic" src="https://okeygeek.ru/wp-content/uploads/2020/03/no_avatar.png" alt="" height="70" />
+                                        <a class="post-username" href="user?id=@a.AuthorID">@b.Name</a> if (a.AuthorID.ToString() == Context.Request.Cookies["auth"])
+                                        {
+                                            <a class="post-categories-p" href="changecomm?id=@a.id">Изменить</a>
+                                            <a class="post-categories-p" href="deletecomm?id=@a.id">Удалить</a>
+                                            <p class="post-categories-p">@a.CreatedAt.Date.ToString().Substring(0, a.CreatedAt.ToString().Length - 8)</p>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="comment-text">
+                            <p>@a.Text</p>
 
-                                            </div>
-                                        </div> }
-                                } }
+                        </div>
+                    </div>
+                }
+            } }
     </div>
 
     @if (counter >= 5)
     {
         if (Context.Request.Cookies["auth"] != null)
         {
-@using (Html.BeginForm("AddCommentary_", "Home"))
-{
-<div class="add-commentary">
-    @Html.TextArea("Text", "", new { placeholder = "Добавить комментарий...", @class = "post-add-comm-ta" })
-    @Html.Hidden("id", Id)
-    <input type="submit" value="Добавить комментарий" class="post-add-comm-submit" />
-</div>}}
-}
+            @using (Html.BeginForm("AddCommentary_", "Home"))
+            {
+                <div class="add-commentary">
+                    @Html.TextArea("Text", "", new { placeholder = "Добавить комментарий...", @class = "post-add-comm-ta" })
+                    @Html.Hidden("id", Id)
+                    <input type="submit" value="Добавить комментарий" class="post-add-comm-submit" />
+                </div>
+            }
+        }
+    }
 </body>
 </html>
