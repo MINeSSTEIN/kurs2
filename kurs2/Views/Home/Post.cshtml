@@ -93,11 +93,12 @@
     {
         @using (Html.BeginForm("AddCommentary_", "Home"))
         {
-            <div class="add-commentary">
-                @Html.TextArea("Text", new { placeholder = "Добавить комментарий...", @class = "post-add-comm-ta" })
-                @Html.Hidden("id", Id)
-                <input type="submit" value="Добавить комментарий" class="post-add-comm-submit" />
-            </div>
+<div class="add-commentary">
+    @Html.TextArea("Text", new { placeholder = "Добавить комментарий...", @class = "post-add-comm-ta", @data_val = "true", @data_val_required = "Billing Address is required" })
+    <input type="submit" value="Добавить комментарий" class="post-add-comm-submit" />
+    <span class="field-validation-valid error" data-valmsg-for="Text" data-valmsg-replace="true"></span>
+
+</div>
         }
     }
     <div>
@@ -120,7 +121,6 @@
                                 }
                                 <a class="post-categories-p" href="changecomm?id=@a.id">Изменить</a>
                                 <a class="post-categories-p" href="deletecomm?id=@a.id">Удалить</a>
-                                <p class="post-categories-p">@a.CreatedAt.Date.ToString().Substring(0, a.CreatedAt.ToString().Length - 8)</p>
                             }
                             else
                             {
@@ -133,11 +133,12 @@
                                         {
                                             <a class="post-categories-p" href="changecomm?id=@a.id">Изменить</a>
                                             <a class="post-categories-p" href="deletecomm?id=@a.id">Удалить</a>
-                                            <p class="post-categories-p">@a.CreatedAt.Date.ToString().Substring(0, a.CreatedAt.ToString().Length - 8)</p>
                                         }
                                     }
                                 }
                             }
+                            <p class="post-categories-p">@a.CreatedAt.ToString()</p>
+
                         </div>
                         <div class="comment-text">
                             <p>@a.Text</p>
@@ -157,10 +158,19 @@
                 <div class="add-commentary">
                     @Html.TextArea("Text", "", new { placeholder = "Добавить комментарий...", @class = "post-add-comm-ta" })
                     @Html.Hidden("id", Id)
-                    <input type="submit" value="Добавить комментарий" class="post-add-comm-submit" />
+                    <input type="submit" value="Добавить комментарий" class="post-add-comm-submit" onclick="empty()" />
                 </div>
             }
         }
     }
+    <script>
+        function empty() {
+            var checker = document.getElementsById("Text").value;
+            if (checker == null || checker.length == 0) {
+                alert("Поле пустое!");
+            }
+        }
+    </script>
+
 </body>
 </html>

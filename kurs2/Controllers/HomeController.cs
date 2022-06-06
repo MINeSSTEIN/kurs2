@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace kurs2.Controllers
@@ -37,8 +38,16 @@ namespace kurs2.Controllers
         [Route("SearchPosts")]
         public IActionResult SearchPosts(string q)
         {
-            Response.Redirect($"Searchq?q={q}");
+            if (q != "")
+            {
+                Response.Redirect($"Searchq?q={q}");
+            }
+            else
+            {
+                Response.Redirect("/");
+            }
             return View();
+
         }
 
         [Route("Searchq")]
@@ -54,7 +63,7 @@ namespace kurs2.Controllers
         [Route("Index")]
         public IActionResult Search(string q)
         {
-            if(q != "")
+            if (q != "")
             {
                 Response.Redirect($"search?q={q}");
             }
@@ -162,7 +171,7 @@ namespace kurs2.Controllers
                 }
 
 
-                    Response.Redirect($"post?id={post.id}");
+                Response.Redirect($"post?id={post.id}");
 
             }
             return View(model);
@@ -193,10 +202,14 @@ namespace kurs2.Controllers
             return View();
         }
 
-        [Route("AddCommentary_")]
-        public ActionResult AddCommentary_(string text, int id)
+        
+        public void AddCommentary_(string text, int id)
         {
-            if (text != "")
+            if (text == null)
+            {
+                Response.Redirect($"/post?id={id}");
+            }
+            else
             {
                 Comments comm = new Comments();
                 comm.Text = text;
@@ -206,9 +219,6 @@ namespace kurs2.Controllers
                 db.Comments.Add(comm);
                 db.SaveChanges();
             }
-
-            Response.Redirect($"post?id={id}");
-            return View();
         }
 
 
@@ -261,6 +271,25 @@ namespace kurs2.Controllers
         public ActionResult DeletePost(int id)
         {
             ViewBag.id = id;
+
+            foreach(var a in db.Posts_And_Categories)
+            {
+                if(a.PostID == id)
+                {
+                    db.Posts_And_Categories.Remove(a);
+                }
+            }
+            db.SaveChanges();
+
+            foreach (var a in db.Comments)
+            {
+                if (a.PostID == id)
+                {
+                    db.Comments.Remove(a);
+                }
+            }
+            db.SaveChanges();
+
 
             var post = db.Posts.Find(id);
             db.Posts.Remove(post);

@@ -1,7 +1,11 @@
 ﻿@model dynamic
 
 @{ 
-    string q = ViewBag.q.ToLower();
+    string q = "";
+    if (ViewBag.q != null)
+    {
+        q = ViewBag.q.ToLower();
+    }
 }
 
 <h1>Результаты по запросу - @q</h1>

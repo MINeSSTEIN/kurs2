@@ -1,15 +1,13 @@
-﻿@{
-    ViewData["Title"] = "Домашняя";
+﻿@{ ViewData["Title"] = "Домашняя";
     @model dynamic
 }
 
 <div class="text-center">
     <h1>Главная</h1>
     <h2>Фильтрация по категориям:</h2>
-    <details >
+    <details>
         <summary>Показать все категории</summary>
         <div class="post-categories">
-
             @{ foreach (var b in Model.Categories)
                 {
     <a href="category?id=@b.id" class="post-categories-p">
