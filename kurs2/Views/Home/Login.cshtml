@@ -1,13 +1,15 @@
 ﻿@model kurs2.Models.Users
 
-<form asp-action="login" asp-controller="home">
-    <div>
-        <label asp-for="Name">Логин</label>
-        <input type="text" asp-for="Name" />
-    </div>
-    <div>
-        <label asp-for="Password">Пароль</label>
-        <input type="password" asp-for="Password" />
-    </div>
-    <input type="submit" value="Войти" />
-</form>
+<div class="common-form-box ">
+    <form asp-action="login" asp-controller="home">
+        <div class="common-form-div">
+            <label asp-for="Name">Логин</label>
+            <input type="text" asp-for="Name" />
+        </div>
+        <div class="common-form-div">
+            <label asp-for="Password">Пароль</label>
+            <input type="password" asp-for="Password" />
+        </div >
+        <input type="submit" value="Войти" />
+    </form>
+</div>

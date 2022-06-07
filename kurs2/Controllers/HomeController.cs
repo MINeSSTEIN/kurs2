@@ -47,7 +47,6 @@ namespace kurs2.Controllers
                 Response.Redirect("/");
             }
             return View();
-
         }
 
         [Route("Searchq")]
